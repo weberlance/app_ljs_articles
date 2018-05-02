@@ -1,6 +1,8 @@
 import React from 'react';
+import CommentsList from '../CommentsList';
 
 class Article extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -10,9 +12,8 @@ class Article extends React.Component {
 
   render() {
     const {article} = this.props;
-    const body = this.state.isOpen ? article.text : null;
     return (
-      <div>
+      <article>
         <div>
           <h1>{article.title}</h1>
           <button onClick={() => this.toggleOpen()}>
@@ -20,16 +21,36 @@ class Article extends React.Component {
           </button>
         </div>
         <div>
-          {body}
+          {this.getBody()}
         </div>
-      </div>
+
+        {this.getComments()}
+      </article>
     );
+  }
+
+  getBody() {
+    const {article} = this.props;
+    return this.state.isOpen ? article.text : null;
   }
 
   toggleOpen() {
     this.setState({
       isOpen: !this.state.isOpen
     });
+  }
+
+  getComments() {
+    const {article} = this.props;
+    if (this.state.isOpen) {
+      return (
+        <div className="article-comments">
+          <CommentsList comments={article.comments}/> 
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 }
 
