@@ -1,7 +1,16 @@
 import React from 'react';
 import CommentsList from '../CommentsList';
+import PropTypes from 'prop-types';
 
 class Article extends React.Component {
+  static propTypes = {
+    article: PropTypes.shape({
+      id: PropTypes.string.isReqired,
+      user: PropTypes.string,
+      text: PropTypes.string,
+      comments: PropTypes.array
+    })
+  }
 
   constructor(props) {
     super(props);
