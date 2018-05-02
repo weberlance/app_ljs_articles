@@ -10,7 +10,9 @@ class Article extends React.Component {
       user: PropTypes.string,
       text: PropTypes.string,
       comments: PropTypes.array
-    })
+    }),
+    isOpen: PropTypes.bool.isRequired,
+    toggleOpen: PropTypes.func.isRequired
   }
 
   render() {
@@ -19,7 +21,7 @@ class Article extends React.Component {
       <article>
         <div>
           <h1>{article.title}</h1>
-          <button onClick={() => toggleOpen()}>
+          <button onClick={toggleOpen}>
             {isOpen ? 'Close' : 'Open'}
           </button>
         </div>
@@ -43,13 +45,13 @@ class Article extends React.Component {
     }
     return (
       <div className="article-comments">
-        <CommentsList comments={article.comments}/> 
+        <CommentsList comments={article.comments} /> 
       </div>
     );
   }
 }
 
-export default toggleOpen(Article);
+export default Article;
 
 
 
