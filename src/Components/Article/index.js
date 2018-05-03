@@ -10,7 +10,7 @@ class Article extends React.Component {
       user: PropTypes.string,
       text: PropTypes.string,
       comments: PropTypes.array
-    }),
+    }).isRequired,
     isOpen: PropTypes.bool.isRequired,
     toggleOpen: PropTypes.func.isRequired
   }
