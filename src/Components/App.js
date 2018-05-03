@@ -5,6 +5,10 @@ import {articles} from '../fixtures';
 import ArticleList from './ArticleList';
 
 export default class App extends React.Component {
+  static propTypes = {
+    
+  }
+
   render() {
     return <ArticleList articles={articles}/>
   }
