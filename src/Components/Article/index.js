@@ -1,7 +1,7 @@
 import React from 'react';
 import CommentsList from '../CommentsList';
 import PropTypes from 'prop-types';
-import toggleOpen from '../../decorators/toggleOpen';
+// import toggleOpen from '../../decorators/toggleOpen';
 
 class Article extends React.Component {
   static propTypes = {
