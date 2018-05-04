@@ -1,10 +1,14 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import CommentsList from '../CommentsList';
+import LeaveCommentBtn from '../LeaveCommentBtn';
 import PropTypes from 'prop-types';
 // import toggleOpen from '../../decorators/toggleOpen';
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import './style.css';
+
+import AddCommentForm from '../AddCommentForm';
 
 class Article extends React.Component {
 
@@ -17,6 +21,10 @@ class Article extends React.Component {
     }).isRequired,
     isOpen: PropTypes.bool.isRequired,
     toggleOpen: PropTypes.func.isRequired
+  }
+
+  state = {
+    isAddingComment: false
   }
 
   render() {
@@ -48,6 +56,13 @@ class Article extends React.Component {
     return (
       <div>
         {article.text}
+        <LeaveCommentBtn 
+          id={article.id}
+          type="article"
+          addComment={this.addComment(article.id)}
+        />
+        {this.state.isAddingComment ? <AddCommentForm sendComment={this.sendComment}/> : null}
+
         {this.getComments()}
       </div>
     );
@@ -63,6 +78,18 @@ class Article extends React.Component {
         <CommentsList comments={article.comments} /> 
       </div>
     );
+  }
+
+  addComment = (id) => () => {
+    this.setState({
+      isAddingComment: true
+    });
+  }
+
+  sendComment = () => {
+    this.setState({
+      isAddingComment: false
+    });
   }
 }
 

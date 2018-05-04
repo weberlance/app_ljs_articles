@@ -33,10 +33,6 @@ class CommentsList extends React.Component {
            transitionLeaveTimeout = {300}
            component="ul"
         >
-          {/*<ul className="comments-list">
-                      {this.getCommentItems()}
-                    </ul>*/}
-          
           {this.getCommentItems()}
           
         </ReactCSSTransitionGroup>
@@ -49,11 +45,16 @@ class CommentsList extends React.Component {
     
     const {comments} = this.props;
     const commentItems = comments.map(comment => 
-      <Comment key={comment.id} comment={comment}/>
+      <Comment key={comment.id} comment={comment} addComment={this.addComment(comment.id)}/>
     );
 
     return commentItems;
   }
+
+  addComment = (id) => () => {
+    alert('add the comment to comment with id: ' + id);
+  }
+
 }
 
 export default toggleOpen(CommentsList);

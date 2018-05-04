@@ -1,6 +1,9 @@
 import React from 'react';
 import CommentsList from '../CommentsList';
 import PropTypes from 'prop-types';
+import LeaveCommentBtn from '../LeaveCommentBtn';
+
+import './style.css';
 
 export default class Comment extends React.Component {
   static propTypes = {
@@ -9,11 +12,12 @@ export default class Comment extends React.Component {
       user: PropTypes.string,
       text: PropTypes.string,
       comments: PropTypes.array
-    })
+    }),
+    addComment: PropTypes.func
   }
 
   render() {
-    const {comment} = this.props;
+    const {comment, addComment} = this.props;
     return (
       <li>
         <div className="comment__author">
@@ -21,13 +25,18 @@ export default class Comment extends React.Component {
         </div>
         <div className="comment__text">
           {comment.text}
+          <LeaveCommentBtn 
+            id={comment.id}
+            type="comment"
+            addComment={this.props.addComment}
+          />
         </div>
-        {this.getInnerComents(comment)}
+        {this.getInnerComments(comment)}
       </li>
     );
   }
 
-  getInnerComents(comment) {
+  getInnerComments(comment) {
     if (comment.comments) {
       return (
         <div className="comment__inner">

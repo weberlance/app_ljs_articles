@@ -1,0 +1,12 @@
+.add-comment-form {
+  padding: 10px;
+  max-width: 500px;
+  margin: auto;
+}
+.add-comment-form__inp-box {
+  display: flex;
+  justify-content: space-between;
+}
+.add-comment-form__input_warn {
+  outline: 2px solid #f88;
+}
