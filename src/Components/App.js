@@ -26,7 +26,6 @@ export default class App extends React.Component {
       }));
     return (
       <div>
-        <DatepickerDefault/>
         <DatepickerRange/>
         <Select options={options} value = {this.state.selection} onChange = {this.changeSelection} multi/>
         <UserForm />
