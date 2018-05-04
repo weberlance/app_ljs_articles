@@ -10,54 +10,58 @@ class AddCommentForm extends React.Component {
 
   state = {
     userName: 'Guest',
-    userNameWarn: false,
-    message: '',
-    messageWarn: false
+    message: ''
   }
 
   render() {
     return (
       <div className="add-comment-form">
         <div className="add-comment-form__inp-box">
-          name: <input type="text" className={"add-comment-form__input add-comment-form__input_name" + (this.state.userNameWarn ? " add-comment-form__input_warn" : "")} value={this.state.userName} onChange={this.nameChangeHandle}/>
+          name: <input
+            type="text"
+            className={"add-comment-form__input add-comment-form__input_name" + this.warningClass('userName')}
+            value={this.state.userName}
+            onChange={this.changeHandle('userName')}
+          />
         </div>
         <div className="add-comment-form__inp-box">
-          message: <textarea type="text" className={"add-comment-form__input add-comment-form__input_text" + (this.state.messageWarn ? " add-comment-form__input_warn" : "")} value={this.state.message} onChange={this.messageChangeHandle}></textarea>
+          message: <textarea
+            type="text"
+            className={"add-comment-form__input add-comment-form__input_text" + this.warningClass('message')}
+            value={this.state.message}
+            onChange={this.changeHandle('message')}>
+          </textarea>
         </div>
         <button onClick={this.props.sendComment}>Send</button>
       </div>
     );
   }
 
-  nameChangeHandle = (ev) => {
-    const newName = ev.target.value;
-    if (newName.length < 5 || newName.length > 15) {
-      this.setState({
-        userName: newName,
-        userNameWarn: true
-      });
-    } else {
-      this.setState({
-        userName: newName,
-        userNameWarn: false
-      });
+  warningClass = type => {
+    const currentValue = this.state[type];
+    if (currentValue.length && currentValue.length < limit[type].min) {
+      return ' add-comment-form__input_warn';
     }
   }
 
-  messageChangeHandle = (ev) => {
-    const newMessage = ev.target.value;
-    if (newMessage.length < 30 || newMessage.length > 50) {
-      this.setState({
-        message: newMessage,
-        messageWarn: true
-      });
-    } else {
-      this.setState({
-        message: newMessage,
-        messageWarn: false
-      });
-    }
+  changeHandle = type => (ev) => {
+    const value = ev.target.value;
+    if (value.length > limit[type].max) return;
+    this.setState({
+      [type]: value
+    });
   }
 }
+
+const limit = {
+  userName: {
+    min: 5,
+    max: 15
+  },
+  message: {
+    min: 30,
+    max: 50
+  }
+};
 
 export default AddCommentForm;
