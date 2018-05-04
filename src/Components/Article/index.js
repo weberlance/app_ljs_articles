@@ -3,7 +3,11 @@ import CommentsList from '../CommentsList';
 import PropTypes from 'prop-types';
 // import toggleOpen from '../../decorators/toggleOpen';
 
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import './style.css';
+
 class Article extends React.Component {
+
   static propTypes = {
     article: PropTypes.shape({
       id: PropTypes.string.isReqired,
@@ -16,6 +20,7 @@ class Article extends React.Component {
   }
 
   render() {
+
     const {article, isOpen, toggleOpen} = this.props;
     return (
       <article>
@@ -25,17 +30,27 @@ class Article extends React.Component {
             {isOpen ? 'Close' : 'Open'}
           </button>
         </div>
-        <div>
-          {this.getBody()}
-        </div>
-        {this.getComments()}
+        
+          <ReactCSSTransitionGroup
+            transitionName = "article"
+            transitionEnterTimeout = {500}
+            transitionLeaveTimeout = {300}
+          >
+            {this.getBody()}
+          </ReactCSSTransitionGroup>
       </article>
     );
   }
 
   getBody() {
     const {article, isOpen} = this.props;
-    return isOpen ? article.text : null;
+    if (!isOpen) return null;
+    return (
+      <div>
+        {article.text}
+        {this.getComments()}
+      </div>
+    );
   }
 
   getComments() {
@@ -52,73 +67,3 @@ class Article extends React.Component {
 }
 
 export default Article;
-
-
-
-/*
-//variant without decorators
-
-class Article extends React.Component {
-  static propTypes = {
-    article: PropTypes.shape({
-      id: PropTypes.string.isReqired,
-      user: PropTypes.string,
-      text: PropTypes.string,
-      comments: PropTypes.array
-    })
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false
-    }
-  }
-
-  render() {
-    const {article} = this.props;
-    return (
-      <article>
-        <div>
-          <h1>{article.title}</h1>
-          <button onClick={() => this.toggleOpen()}>
-            {this.state.isOpen ? 'Close' : 'Open'}
-          </button>
-        </div>
-        <div>
-          {this.getBody()}
-        </div>
-
-        {this.getComments()}
-      </article>
-    );
-  }
-
-  getBody() {
-    const {article} = this.props;
-    return this.state.isOpen ? article.text : null;
-  }
-
-  toggleOpen() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
-
-  getComments() {
-    const {article} = this.props;
-    if (this.state.isOpen) {
-      return (
-        <div className="article-comments">
-          <CommentsList comments={article.comments}/> 
-        </div>
-      );
-    } else {
-      return null;
-    }
-  }
-}
-
-export default Article;
-
-*/

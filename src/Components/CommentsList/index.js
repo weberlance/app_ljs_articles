@@ -3,6 +3,9 @@ import Comment from '../Comment';
 import toggleOpen from '../../decorators/toggleOpen'
 import PropTypes from 'prop-types';
 
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import './style.css';
+
 class CommentsList extends React.Component {
   static propTypes = {
     comments: PropTypes.array
@@ -22,9 +25,21 @@ class CommentsList extends React.Component {
         <div>
           <button onClick={() => this.props.toggleOpen()}>{this.props.isOpen ? 'Hide' : 'Show'} comments</button>
         </div>
-        <ul className="comments-list">
+
+        <ReactCSSTransitionGroup
+           className="comments-list"
+           transitionName = "commentList"
+           transitionEnterTimeout = {500}
+           transitionLeaveTimeout = {300}
+           component="ul"
+        >
+          {/*<ul className="comments-list">
+                      {this.getCommentItems()}
+                    </ul>*/}
+          
           {this.getCommentItems()}
-        </ul>
+          
+        </ReactCSSTransitionGroup>
       </div>
     );
   }
