@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import DatePicker from 'react-datepicker';
-// import 'react-datepicker/dist/react-datepicker.css';
 
 import ArticleList from './ArticleList';
-import UserForm from './UserForm';
-import DatepickerDefault from './DatepickerDefault';
 import DatepickerRange from './DatepickerRange';
-
+import UserForm from './UserForm';
 import Select from 'react-select';
+import Counter from './Counter';
+import {Provider} from 'react-redux';
 
 export default class App extends React.Component {
   static propTypes = {
@@ -25,12 +23,15 @@ export default class App extends React.Component {
         value: article.id
       }));
     return (
-      <div>
-        <DatepickerRange/>
-        <Select options={options} value = {this.state.selection} onChange = {this.changeSelection} multi/>
-        <UserForm />
-        <ArticleList articles={this.props.articles}/>
-      </div>
+      <Provider store = {store}>
+        <div>
+          <DatepickerRange/>
+          <Select options={options} value = {this.state.selection} onChange = {this.changeSelection} multi/>
+          <UserForm />
+          <Counter />
+          <ArticleList articles={this.props.articles}/>
+        </div>
+      </Provider>
     );
   }
 
