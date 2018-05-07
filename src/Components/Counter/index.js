@@ -18,6 +18,41 @@ class Counter extends React.Component {
   }
 
   handleIncrement = () => {
+    // console.log('incremented');
+    this.props.increment();
+  }
+}
+
+export default connect((state) => ({
+  counter: state.count
+}), { increment })(Counter);
+
+
+
+
+
+/* 
+// before decorator-connect refactoring:
+import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {increment} from '../../AC';
+
+class Counter extends React.Component {
+  static propTypes = {
+    counter: PropTypes.number
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>{this.props.counter}</h2>
+        <button onClick = {this.handleIncrement}>Increment</button>
+      </div>
+    );
+  }
+
+  handleIncrement = () => {
     console.log('incremented');
     // this.props.dispatch(increment());
     this.props.dispatchIncrement();
@@ -38,3 +73,5 @@ const mapToDispatch = ({
 const decorator = connect(mapStateToProps, mapToDispatch);
 
 export default decorator(Counter);
+
+*/
