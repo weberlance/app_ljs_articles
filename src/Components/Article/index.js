@@ -4,6 +4,8 @@ import CommentsList from '../CommentsList';
 import LeaveCommentBtn from '../LeaveCommentBtn';
 import PropTypes from 'prop-types';
 // import toggleOpen from '../../decorators/toggleOpen';
+import {connect} from 'react-redux';
+import {deleteArticle} from '../../AC';
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import './style.css';
@@ -20,7 +22,9 @@ class Article extends React.Component {
       comments: PropTypes.array
     }).isRequired,
     isOpen: PropTypes.bool.isRequired,
-    toggleOpen: PropTypes.func.isRequired
+    toggleOpen: PropTypes.func.isRequired,
+    // from connect
+    deleteArticle: PropTypes.func
   }
 
   state = {
@@ -34,7 +38,8 @@ class Article extends React.Component {
       <article>
         <div>
           <h1>{article.title}</h1>
-          <button onClick={toggleOpen}>
+          <button onClick = {this.handleDelete}>Delete article</button>
+          <button onClick = {toggleOpen}>
             {isOpen ? 'Close' : 'Open'}
           </button>
         </div>
@@ -91,6 +96,11 @@ class Article extends React.Component {
       isAddingComment: false
     });
   }
+
+  handleDelete = () => {
+    console.log('deleteing')
+    const {deleteArticle, article} = this.props;
+  }
 }
 
-export default Article;
+export default connect(null, {deleteArticle} )(Article);

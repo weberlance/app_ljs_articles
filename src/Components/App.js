@@ -6,6 +6,7 @@ import DatepickerRange from './DatepickerRange';
 import UserForm from './UserForm';
 import Select from 'react-select';
 import Counter from './Counter';
+import store from '../store';
 import {Provider} from 'react-redux';
 
 export default class App extends React.Component {
@@ -18,18 +19,25 @@ export default class App extends React.Component {
   }
 
   render() {
+    /*
+    // to filters
     const options = this.props.articles.map(article => ({
         label: article.title,
         value: article.id
       }));
+    */
     return (
       <Provider store = {store}>
         <div>
+          {/*
+              add <Filters/>
+              wich will be include DatepickerRange, Select
           <DatepickerRange/>
           <Select options={options} value = {this.state.selection} onChange = {this.changeSelection} multi/>
+          */}
           <UserForm />
           <Counter />
-          <ArticleList articles={this.props.articles}/>
+          <ArticleList/>
         </div>
       </Provider>
     );
