@@ -98,8 +98,8 @@ class Article extends React.Component {
   }
 
   handleDelete = () => {
-    console.log('deleteing')
     const {deleteArticle, article} = this.props;
+    deleteArticle(article.id);
   }
 }
 
