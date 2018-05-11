@@ -32,6 +32,7 @@ export default connect((state) => ({
 
 
 /* 
+// don't remove, for example and more exactly explanation of process
 // before decorator-connect refactoring:
 import React from 'react';
 import PropTypes from 'prop-types';

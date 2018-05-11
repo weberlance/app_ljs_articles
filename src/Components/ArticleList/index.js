@@ -3,6 +3,7 @@ import Article from '../Article';
 import Accordion from '../../decorators/accordion';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {filtrateArticlesSelector} from '../../selectors';
 
 class ArticleList extends React.Component {
   static propTypes = {
@@ -38,33 +39,9 @@ class ArticleList extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const {selection, dateRange: {startDate, endDate}} = state.filterState;
-  const {articles} = state;
-
-  const filteredArticles = articles.filter(article => {
-    const publishDate = Date.parse(article.date);
-    return (
-         // selected
-        (!selection.length || selection.includes(article.id)) &&
-        // in date range
-        (
-          (!startDate && !endDate) ||
-          ((startDate && !endDate) && (publishDate > startDate)) ||
-          ((!startDate && endDate) && (publishDate < endDate)) ||
-          (startDate && endDate && (publishDate > startDate && publishDate < endDate))
-        )
-      );
-  });
-
   return {
-    articles: filteredArticles
+    articles: filtrateArticlesSelector(state)
   };
-
-  // if (selection.length === 0) return ({articles});
-
-  // return ({
-  //   articles: articles.filter(article => selection.some(id => article.id === id))
-  // });
 }
 
 export default connect(mapStateToProps)(Accordion(ArticleList));
