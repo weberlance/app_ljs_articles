@@ -3,10 +3,14 @@ import CommentsList from '../CommentsList';
 import PropTypes from 'prop-types';
 import LeaveCommentBtn from '../LeaveCommentBtn';
 
+import {connect} from 'react-redux';
+
 import './style.css';
 
-export default class Comment extends React.Component {
+class Comment extends React.Component {
   static propTypes = {
+    id: PropTypes.string.isRequired,
+    // from connect
     comment: PropTypes.shape({
       id: PropTypes.string,
       user: PropTypes.string,
@@ -48,3 +52,9 @@ export default class Comment extends React.Component {
     }
   }
 }
+
+export default connect((state, ownProps) => {
+  return {
+    comment: state.comments[ownProps.id]
+  };
+})(Comment);

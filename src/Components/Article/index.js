@@ -38,8 +38,8 @@ class Article extends React.Component {
       <article>
         <div>
           <h1>{article.title}</h1>
-          <button onClick = {this.handleDelete}>Delete article</button>
-          <button onClick = {toggleOpen}>
+          <button onClick = {this.handleDelete} className="article-btn article-btn_delete">Delete article</button>
+          <button onClick = {toggleOpen} className="article-btn article-btn_open-close">
             {isOpen ? 'Close' : 'Open'}
           </button>
         </div>

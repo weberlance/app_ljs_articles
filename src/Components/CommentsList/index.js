@@ -42,10 +42,9 @@ class CommentsList extends React.Component {
 
   getCommentItems() {
     if (!this.props.isOpen) return null;
-    
     const {comments} = this.props;
-    const commentItems = comments.map(comment => 
-      <Comment key={comment.id} comment={comment} addComment={this.addComment(comment.id)}/>
+    const commentItems = comments.map(commentId => 
+      <Comment key={commentId} id={commentId} addComment={this.addComment(commentId)}/>
     );
 
     return commentItems;

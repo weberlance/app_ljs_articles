@@ -15,3 +15,17 @@
   opacity: 0.01;
   transition: opacity 300ms ease-in;
 }
+
+.article-btn {
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-transform: uppercase;
+
+}
+.article-btn_open-close {
+  background-color: #3b3;
+}
+.article-btn_delete {
+  background-color: #f66;
+  margin: 0 10px;
+}
