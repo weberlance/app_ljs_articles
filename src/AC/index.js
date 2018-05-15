@@ -1,4 +1,9 @@
-import {INCREMENT, DELETE_ARTICLE, FILTER_DATE_RANGE, FILTER_SELECTION} from '../constants';
+import {
+  INCREMENT,
+  DELETE_ARTICLE,
+  FILTER_DATE_RANGE,
+  FILTER_SELECTION
+} from '../constants';
 
 export function increment() {
   return ({
