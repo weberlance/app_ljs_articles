@@ -2,7 +2,8 @@ import {
   INCREMENT,
   DELETE_ARTICLE,
   FILTER_DATE_RANGE,
-  FILTER_SELECTION
+  FILTER_SELECTION,
+  CREATE_COMMENT
 } from '../constants';
 
 export function increment() {
@@ -32,4 +33,12 @@ export function filterSelectUpdate (selection) {
     type: FILTER_SELECTION,
     payload: { selection }
   });  
+}
+
+export function createComment(comment, articleId) {
+  return ({
+    type: CREATE_COMMENT,
+    payload: {comment, articleId},
+    generateId: true // to get randomId from middleware idGen
+  });
 }

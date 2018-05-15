@@ -32,7 +32,7 @@ class AddCommentForm extends React.Component {
             onChange={this.changeHandle('message')}>
           </textarea>
         </div>
-        <button onClick={this.props.sendComment}>Send</button>
+        <button onClick={this.sendComment}>Send</button>
       </div>
     );
   }
@@ -50,6 +50,19 @@ class AddCommentForm extends React.Component {
     this.setState({
       [type]: value
     });
+  }
+
+  sendComment = () => {
+    const comment = this.getComment();
+    this.props.sendComment(comment);
+  }
+
+  getComment() {
+    return {
+      id: null,
+      user: this.state.userName,
+      text: this.state.message
+    };
   }
 }
 
