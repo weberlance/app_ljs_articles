@@ -3,7 +3,8 @@ import {
   DELETE_ARTICLE,
   FILTER_DATE_RANGE,
   FILTER_SELECTION,
-  CREATE_COMMENT
+  CREATE_COMMENT,
+  GET_ALL_ARTICLES
 } from '../constants';
 
 export function increment() {
@@ -40,5 +41,12 @@ export function createComment(comment, articleId) {
     type: CREATE_COMMENT,
     payload: {comment, articleId},
     generateId: true // to get randomId from middleware idGen
+  });
+}
+
+export function getAllArticles () {
+  return ({
+    type: GET_ALL_ARTICLES,
+    callAPI: 'api/article'
   });
 }

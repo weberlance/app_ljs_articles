@@ -1,10 +1,10 @@
-import {DELETE_ARTICLE, CREATE_COMMENT} from '../constants';
-import {normalizedArticles as defaultArticles} from '../fixtures';
+import {DELETE_ARTICLE, CREATE_COMMENT, GET_ALL_ARTICLES} from '../constants';
+// import {normalizedArticles as defaultArticles} from '../fixtures';
 import {arrToMap} from '../helpers';
 
-const mapArticles = arrToMap(defaultArticles);
+// const mapArticles = arrToMap(defaultArticles);
 
-export default (articleState = mapArticles, action) => {
+export default (articleState = {}, action) => {
   const {type, payload} = action;
 
   switch(type) {
@@ -22,6 +22,10 @@ export default (articleState = mapArticles, action) => {
         ...articleState,
         [payload.articleId]: {...article, comments: newCommentsList}
       };
+
+    case GET_ALL_ARTICLES:
+      const {response} = action;
+      return arrToMap(response);
   }
 
   return articleState;

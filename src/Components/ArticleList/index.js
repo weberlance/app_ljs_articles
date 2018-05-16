@@ -4,6 +4,7 @@ import Accordion from '../../decorators/accordion';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {filtrateArticlesSelector} from '../../selectors';
+import {getAllArticles} from '../../AC';
 
 class ArticleList extends React.Component {
   static propTypes = {
@@ -32,9 +33,9 @@ class ArticleList extends React.Component {
     );
   }
 
-  // toggleArticle = id => () => {
-  //   this.props.toggleOpenedItem(id);
-  // }
+  componentDidMount() {
+    this.props.getAllArticles();
+  }
 
 }
 
@@ -44,4 +45,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Accordion(ArticleList));
+export default connect(mapStateToProps, {getAllArticles})(Accordion(ArticleList));
