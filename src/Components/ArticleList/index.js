@@ -1,5 +1,6 @@
 import React from 'react';
 import Article from '../Article';
+import Loader from '../Loader';
 import Accordion from '../../decorators/accordion';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
@@ -16,12 +17,14 @@ class ArticleList extends React.Component {
   }
 
   render() {
-    const articleElements = this.props.articles.map(article =>
+    const {articles, openedItemId, toggleOpenedItem, loading} = this.props;
+    if(loading) return <Loader />;
+    const articleElements = articles.map(article =>
       <li key={article.id}>
         <Article
           article = {article}
-          isOpen = {this.props.openedItemId === article.id}
-          toggleOpen = {this.props.toggleOpenedItem(article.id)}
+          isOpen = {openedItemId === article.id}
+          toggleOpen = {toggleOpenedItem(article.id)}
           // toggleOpen = {this.toggleArticle.bind(this, article.id)}
         />
       </li>
@@ -34,14 +37,17 @@ class ArticleList extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getAllArticles();
+    const {loading, loaded, getAllArticles} = this.props;
+    if(!loaded && !loading) getAllArticles();
   }
 
 }
 
 function mapStateToProps(state) {
   return {
-    articles: filtrateArticlesSelector(state)
+    articles: filtrateArticlesSelector(state),
+    loading: state.articles.loading,
+    loaded: state.articles.loaded
   };
 }
 

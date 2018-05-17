@@ -9,3 +9,7 @@ export const FILTER_SELECTION = 'FILTER_SELECTION';
 export const CREATE_COMMENT = 'CREATE_COMMENT';
 
 export const GET_ALL_ARTICLES = 'GET_ALL_ARTICLES';
+
+export const START = '_START';
+export const SUCCESS = '_SUCCESS';
+export const FAIL = '_FAIL';
