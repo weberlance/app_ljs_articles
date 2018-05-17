@@ -1,31 +1,42 @@
 import {DELETE_ARTICLE, CREATE_COMMENT, GET_ALL_ARTICLES} from '../constants';
-// import {normalizedArticles as defaultArticles} from '../fixtures';
+import {Map, Record} from 'immutable';
 import {arrToMap} from '../helpers';
 
-// const mapArticles = arrToMap(defaultArticles);
+const mapArticles = new Map({});
 
-export default (articleState = {}, action) => {
+const ArticleRecord = Record({
+  text: undefined,
+  title: '',
+  id: undefined,
+  comments: []
+});
+
+export default (articleState = mapArticles, action) => {
   const {type, payload} = action;
 
   switch(type) {
     case DELETE_ARTICLE:
-      const newArticleState = {...articleState};
-      delete newArticleState[payload.id];
-      return newArticleState;
+      return articleState.delete(payload.id);
+
+      // const newArticleState = {...articleState};
+      // delete newArticleState[payload.id];
+      // return newArticleState;
 
     case CREATE_COMMENT:
       const {randomId} = action;
-      const article = articleState[payload.articleId];
-      const newCommentsList = (article.comments || []).concat(randomId);
+      return articleState.updateIn([payload.articleId, 'comments'], comments => comments.concat(randomId));
 
-      return {
-        ...articleState,
-        [payload.articleId]: {...article, comments: newCommentsList}
-      };
+      // const article = articleState[payload.articleId];
+      // const newCommentsList = (article.comments || []).concat(randomId);
+
+      // return {
+      //   ...articleState,
+      //   [payload.articleId]: {...article, comments: newCommentsList}
+      // };
 
     case GET_ALL_ARTICLES:
       const {response} = action;
-      return arrToMap(response);
+      return arrToMap(response, ArticleRecord);
   }
 
   return articleState;
