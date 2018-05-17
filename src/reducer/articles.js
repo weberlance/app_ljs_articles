@@ -18,21 +18,9 @@ export default (articleState = mapArticles, action) => {
     case DELETE_ARTICLE:
       return articleState.delete(payload.id);
 
-      // const newArticleState = {...articleState};
-      // delete newArticleState[payload.id];
-      // return newArticleState;
-
     case CREATE_COMMENT:
       const {randomId} = action;
       return articleState.updateIn([payload.articleId, 'comments'], comments => comments.concat(randomId));
-
-      // const article = articleState[payload.articleId];
-      // const newCommentsList = (article.comments || []).concat(randomId);
-
-      // return {
-      //   ...articleState,
-      //   [payload.articleId]: {...article, comments: newCommentsList}
-      // };
 
     case GET_ALL_ARTICLES:
       const {response} = action;
