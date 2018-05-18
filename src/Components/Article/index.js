@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import CommentsList from '../CommentsList';
 import LeaveCommentBtn from '../LeaveCommentBtn';
+import Loader from '../Loader';
 import PropTypes from 'prop-types';
 // import toggleOpen from '../../decorators/toggleOpen';
 import {connect} from 'react-redux';
 import {deleteArticle} from '../../AC';
+import {loadArticle} from '../../AC';
 import {createComment} from '../../AC';
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -32,10 +34,16 @@ class Article extends React.Component {
   state = {
     isAddingComment: false
   }
+  
+
+  componentWillReceiveProps({isOpen, loadArticle, article}) {
+    if(isOpen && !article.text && !article.loading) loadArticle(article.id);
+  }
 
   render() {
 
     const {article, isOpen, toggleOpen} = this.props;
+    if (article.loading) return <Loader />;
     return (
       <article>
         <div>
@@ -107,4 +115,4 @@ class Article extends React.Component {
   }
 }
 
-export default connect(null, {deleteArticle, createComment} )(Article);
+export default connect(null, {deleteArticle, createComment, loadArticle} )(Article);
