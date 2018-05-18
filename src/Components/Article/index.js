@@ -43,7 +43,6 @@ class Article extends React.Component {
   render() {
 
     const {article, isOpen, toggleOpen} = this.props;
-    if (article.loading) return <Loader />;
     return (
       <article>
         <div>
@@ -68,6 +67,7 @@ class Article extends React.Component {
   getBody() {
     const {article, isOpen} = this.props;
     if (!isOpen) return null;
+    if (article.loading) return <Loader />;
     return (
       <div>
         {article.text}
