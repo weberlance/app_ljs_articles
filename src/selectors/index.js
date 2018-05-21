@@ -4,7 +4,7 @@ import {mapToArr} from '../helpers';
 const articlesGetter = state => state.articles.entities;
 const filtersGetter = state => state.filterState;
 
-const commentsGetter = state => state.comments;
+const commentsGetter = state => state.comments.entities;
 const commentIdGetter = (state, props) => props.id;
 
 export const filtrateArticlesSelector = createSelector(articlesGetter, filtersGetter, (articles, filterState) => {
@@ -25,6 +25,6 @@ export const filtrateArticlesSelector = createSelector(articlesGetter, filtersGe
     });
 });
 
-export const commentSelector = createSelector(commentsGetter, commentIdGetter, (comments, id) => {
-  return comments[props.id];
+export const commentSelectorFactory = () => createSelector(commentsGetter, commentIdGetter, (comments, id) => {
+  return comments.get(id);
 });

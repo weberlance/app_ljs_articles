@@ -1,4 +1,4 @@
-import { INCREMENT, DELETE_ARTICLE, FILTER_DATE_RANGE, FILTER_SELECTION, CREATE_COMMENT, GET_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL} from '../constants';
+import { INCREMENT, DELETE_ARTICLE, FILTER_DATE_RANGE, FILTER_SELECTION, CREATE_COMMENT, GET_ALL_ARTICLES, LOAD_ARTICLE, LOAD_ARTICLE_COMMENTS, START, SUCCESS, FAIL} from '../constants';
 
 export function increment() {
   return ({
@@ -78,3 +78,30 @@ export function loadArticle(id) {
 //     callAPI: `api/article/${id}`
 //   });
 // }
+
+
+export function loadArticleComments(articleId) {
+  return (dispatch) => {
+    dispatch({
+      type: LOAD_ARTICLE_COMMENTS + START,
+      payload: {articleId}
+    });
+
+    setTimeout(() => {
+      fetch(`/api/comment?article=${articleId}`)
+        .then(res => res.json())
+        .then(response => {
+          dispatch({
+            type: LOAD_ARTICLE_COMMENTS + SUCCESS,
+            payload: {articleId, response}
+          });
+        })
+        .catch(error => {
+          dispatch({
+            type: LOAD_ARTICLE_COMMENTS + FAIL,
+            payload: { articleId, error }
+          });
+        });
+    }, 1000);
+  };
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import CommentsList from '../CommentsList';
 import PropTypes from 'prop-types';
 import LeaveCommentBtn from '../LeaveCommentBtn';
+import {commentSelectorFactory} from '../../selectors';
 
 import {connect} from 'react-redux';
 
@@ -15,7 +16,7 @@ class Comment extends React.Component {
       id: PropTypes.string,
       user: PropTypes.string,
       text: PropTypes.string,
-      comments: PropTypes.array
+      comments: PropTypes.object
     }),
     addComment: PropTypes.func
   }
@@ -53,8 +54,14 @@ class Comment extends React.Component {
   }
 }
 
-export default connect((state, ownProps) => {
-  return {
-    comment: state.comments[ownProps.id]
+const mapStateToProps = () => {
+  const commentSelector = commentSelectorFactory();
+
+  return (state, ownProps) => {
+    return {
+      comment: commentSelector(state, ownProps)
+    };
   };
-})(Comment);
+}
+
+export default connect(mapStateToProps)(Comment);

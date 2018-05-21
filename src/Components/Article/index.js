@@ -22,7 +22,11 @@ class Article extends React.Component {
       id: PropTypes.string.isReqired,
       user: PropTypes.string,
       text: PropTypes.string,
-      comments: PropTypes.array
+      comments: PropTypes.array,
+      // from articleRecord
+      loading: PropTypes.bool,
+      commentsLoading: PropTypes.bool,
+      commentsLoaded: PropTypes.bool
     }).isRequired,
     isOpen: PropTypes.bool.isRequired,
     toggleOpen: PropTypes.func.isRequired,
@@ -90,7 +94,8 @@ class Article extends React.Component {
     }
     return (
       <div className="article-comments">
-        <CommentsList comments={article.comments} /> 
+        {/*<CommentsList comments={article.comments} />*/}
+        <CommentsList article = {article} /> 
       </div>
     );
   }

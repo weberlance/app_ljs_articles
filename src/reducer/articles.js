@@ -1,4 +1,4 @@
-import {DELETE_ARTICLE, CREATE_COMMENT, GET_ALL_ARTICLES, START, SUCCESS, LOAD_ARTICLE} from '../constants';
+import {DELETE_ARTICLE, CREATE_COMMENT, GET_ALL_ARTICLES, START, SUCCESS, LOAD_ARTICLE, LOAD_ARTICLE_COMMENTS} from '../constants';
 import {Map, OrderedMap, Record} from 'immutable';
 import {arrToMap} from '../helpers';
 
@@ -15,7 +15,9 @@ const ArticleRecord = Record({
   title: '',
   id: undefined,
   loading: false,
-  comments: []
+  comments: [],
+  commentsLoading: false,
+  commentsLoaded: false
 });
 
 export default (articleState = defaultState, action) => {
@@ -33,7 +35,7 @@ export default (articleState = defaultState, action) => {
       return articleState.set('loading', true);
 
     case GET_ALL_ARTICLES + SUCCESS:
-      const {response} = action;
+      const {response} = action; // response in action for example
       return articleState
           .set('entities', arrToMap(response, ArticleRecord))
           .set('loading', false)
@@ -43,9 +45,17 @@ export default (articleState = defaultState, action) => {
       return articleState
         .setIn(['entities', payload.id, 'loading'], true)
 
-    case LOAD_ARTICLE + SUCCESS:
+    case LOAD_ARTICLE + SUCCESS: // response in payload
       return articleState
-        .setIn(['entities', payload.id], new ArticleRecord( payload.response ))
+        .setIn(['entities', payload.id], new ArticleRecord( payload.response ));
+
+    case LOAD_ARTICLE_COMMENTS + START:
+      return articleState.setIn(['entities', payload.articleId, 'commentsLoading'], true);
+
+    case LOAD_ARTICLE_COMMENTS + SUCCESS:
+      return articleState
+        .setIn(['entities', payload.articleId, 'commentsLoading'], false)
+        .setIn(['entities', payload.articleId, 'commentsLoaded'], true);
   }
 
   return articleState;
