@@ -22,7 +22,7 @@ class Comment extends React.Component {
   }
 
   render() {
-    const {comment, addComment} = this.props;
+    const {comment} = this.props;
     return (
       <li>
         <div className="comment__author">
@@ -30,11 +30,7 @@ class Comment extends React.Component {
         </div>
         <div className="comment__text">
           {comment.text}
-          <LeaveCommentBtn 
-            id={comment.id}
-            type="comment"
-            addComment={this.props.addComment}
-          />
+          {this.getLeaveCommentBtn()}
         </div>
         {this.getInnerComments(comment)}
       </li>
@@ -51,6 +47,16 @@ class Comment extends React.Component {
     } else {
       return null;
     }
+  }
+
+  getLeaveCommentBtn() {
+    const {comment, addComment} = this.props;
+    if (!addComment) return null;
+    return <LeaveCommentBtn 
+            id={comment.id}
+            type="comment"
+            addComment={addComment}
+          />
   }
 }
 
