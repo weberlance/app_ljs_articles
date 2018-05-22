@@ -17,3 +17,5 @@ export const FAIL = '_FAIL';
 export const LOAD_ARTICLE = 'LOAD_ARTICLE';
 
 export const LOAD_ARTICLE_COMMENTS = 'LOAD_ARTICLE_COMMENTS';
+
+export const LOAD_PAGE_COMMENTS = 'LOAD_PAGE_COMMENTS';
