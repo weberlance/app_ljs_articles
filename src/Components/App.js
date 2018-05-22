@@ -6,9 +6,10 @@ import {Provider} from 'react-redux';
 import Articles from './routes/articles';
 import UserForm from './UserForm';
 import Counter from './Counter';
-import Filters from './Filters'
+import Filters from './Filters';
+import NotFound from './NotFound';
 
-import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
+import {BrowserRouter as Router, Route, NavLink, Switch} from 'react-router-dom';
 
 export default class App extends React.Component {
   static propTypes = {
@@ -28,9 +29,12 @@ export default class App extends React.Component {
             </div>
 
             <UserForm />
-            <Route path = "/counter" component = {Counter}/>
-            <Route path = "/filters" component = {Filters}/>
-            <Route path = "/articles" component = {Articles}/>
+            <Switch>
+              <Route path = "/counter" component = {Counter}/>
+              <Route path = "/filters" component = {Filters}/>
+              <Route path = "/articles" component = {Articles}/>
+              <Route path = "*" component = {NotFound}/>
+            </Switch>
           </div>
         </Router>
       </Provider>
