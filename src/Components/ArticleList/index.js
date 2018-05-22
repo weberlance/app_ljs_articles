@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {filtrateArticlesSelector} from '../../selectors';
 import {getAllArticles} from '../../AC';
+import {NavLink} from 'react-router-dom';
 
 class ArticleList extends React.Component {
   static propTypes = {
@@ -21,12 +22,15 @@ class ArticleList extends React.Component {
     if(loading) return <Loader />;
     const articleElements = articles.map(article =>
       <li key={article.id}>
+        {/*
         <Article
           article = {article}
           isOpen = {openedItemId === article.id}
           toggleOpen = {toggleOpenedItem(article.id)}
           // toggleOpen = {this.toggleArticle.bind(this, article.id)}
         />
+      */}
+        <NavLink to={`/articles/${article.id}`} activeStyle = {{color: '#f55'}}>{article.title}</NavLink>
       </li>
     );
     return (

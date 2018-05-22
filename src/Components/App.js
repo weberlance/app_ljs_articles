@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import store from '../store';
 import {Provider} from 'react-redux';
 
-import ArticleList from './ArticleList';
+import Articles from './routes/articles';
 import UserForm from './UserForm';
 import Counter from './Counter';
 import Filters from './Filters'
@@ -30,7 +30,7 @@ export default class App extends React.Component {
             <UserForm />
             <Route path = "/counter" component = {Counter}/>
             <Route path = "/filters" component = {Filters}/>
-            <Route path = "/articles" component = {ArticleList}/>
+            <Route path = "/articles" component = {Articles}/>
           </div>
         </Router>
       </Provider>

@@ -18,8 +18,14 @@ import AddCommentForm from '../AddCommentForm';
 class Article extends React.Component {
 
   static propTypes = {
+    id: PropTypes.string.isRequired,
+    isOpen: PropTypes.bool,
+    toggleOpen: PropTypes.func,
+    // from connect
+    deleteArticle: PropTypes.func,
+    createComment: PropTypes.func,
     article: PropTypes.shape({
-      id: PropTypes.string.isReqired,
+      id: PropTypes.string,
       user: PropTypes.string,
       text: PropTypes.string,
       comments: PropTypes.array,
@@ -27,12 +33,7 @@ class Article extends React.Component {
       loading: PropTypes.bool,
       commentsLoading: PropTypes.bool,
       commentsLoaded: PropTypes.bool
-    }).isRequired,
-    isOpen: PropTypes.bool.isRequired,
-    toggleOpen: PropTypes.func.isRequired,
-    // from connect
-    deleteArticle: PropTypes.func,
-    createComment: PropTypes.func,
+    })
   }
 
   state = {
@@ -40,13 +41,15 @@ class Article extends React.Component {
   }
   
 
-  componentWillReceiveProps({isOpen, loadArticle, article}) {
+  componentDidMount() {
+    const {isOpen, loadArticle, article} = this.props;
     if(isOpen && !article.text && !article.loading) loadArticle(article.id);
   }
 
   render() {
 
     const {article, isOpen, toggleOpen} = this.props;
+    if (!article) return null;
     return (
       <article>
         <div>
@@ -120,4 +123,6 @@ class Article extends React.Component {
   }
 }
 
-export default connect(null, {deleteArticle, createComment, loadArticle} )(Article);
+export default connect((state, ownProps) => ({
+  article: state.articles.entities.get(ownProps.id)
+}), {deleteArticle, createComment, loadArticle} )(Article);
