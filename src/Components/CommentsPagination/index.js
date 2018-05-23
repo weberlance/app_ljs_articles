@@ -50,6 +50,7 @@ class Pagination extends React.Component {
   paginator = () => {
     const {total, options:{ limitPerPage }} = this.props;
     const pageLinks = [];
+    if(!total) return <Loader />;
     for(let i = 1; i < Math.ceil(total/limitPerPage) + 1; i++ ) {
       pageLinks.push(<li key = {i}><NavLink to = {`/comments/${i}`}>{i}</NavLink></li>);
     }

@@ -10,7 +10,7 @@ import Filters from './Filters';
 import NotFound from './NotFound';
 import PageComments from './routes/PageComments';
 
-import {BrowserRouter as Router, Route, NavLink, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, NavLink, Switch, Redirect} from 'react-router-dom';
 
 export default class App extends React.Component {
   static propTypes = {
@@ -35,7 +35,8 @@ export default class App extends React.Component {
               <Route path = "/counter" component = {Counter}/>
               <Route path = "/filters" component = {Filters}/>
               <Route path = "/articles" component = {Articles}/>
-              <Route path = "/comments/:page" component = {PageComments}/>
+              <Route path = "/comments" component = {PageComments}/>
+            {/*<Redirect from = "/comments" to = "/comments/1"/>*/}
               <Route path = "*" component = {NotFound}/>
             </Switch>
           </div>
