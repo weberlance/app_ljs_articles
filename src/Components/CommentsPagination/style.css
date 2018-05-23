@@ -1,0 +1,21 @@
+.paginator {
+  list-style-type: none;
+  font-size: 22px;
+  font-family: Arial;
+  text-align: center;
+  background-color: #eee;
+}
+.paginator li {
+  display: inline-block;
+}
+.paginator li a {
+  padding: 5px;
+  text-decoration: none;
+}
+.paginator li a.active {
+  display: inline-block;
+  color: #f55;
+  background-color: #ccc;
+  border-radius: 50%;
+  font-size: 1.5em;
+}

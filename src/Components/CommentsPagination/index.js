@@ -6,6 +6,8 @@ import Loader from '../Loader';
 import Comment from '../Comment';
 import {NavLink} from 'react-router-dom';
 
+import './style.css';
+
 class Pagination extends React.Component {
   static propTypes = {
     options: PropTypes.shape({
@@ -45,9 +47,9 @@ class Pagination extends React.Component {
     const {total} = this.props;
     const pageLinks = [];
     for(let i = 1; i < Math.ceil(total/5) + 1; i++ ) {
-      pageLinks.push(<li key = {i}><NavLink activeStyle = {{color: 'red'}} to = {`/comments/${i}`}>{i}</NavLink></li>);
+      pageLinks.push(<li key = {i}><NavLink to = {`/comments/${i}`}>{i}</NavLink></li>);
     }
-    return <ul>{pageLinks}</ul>;
+    return <ul className="paginator">{pageLinks}</ul>;
   }
 
 }
