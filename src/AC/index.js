@@ -97,7 +97,6 @@ export function loadArticleComments(articleId) {
           });
         })
         .catch(error => {
-          debugger;
           dispatch({
             type: LOAD_ARTICLE_COMMENTS + FAIL,
             payload: { articleId, error }
