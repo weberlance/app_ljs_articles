@@ -11,7 +11,8 @@ class AllComments extends React.Component {
 
   render() {
     const pagOptions = {
-      page: this.props.match.params.page
+      page: parseInt(this.props.match.params.page) || 1,
+      limitPerPage: 5
     };
 
     return (

@@ -106,16 +106,16 @@ export function loadArticleComments(articleId) {
   };
 };
 
-export function loadCommentsForPage(page) {
+export function loadCommentsForPage(page, limitPerPage) {
   return (dispatch, getState) => {
 
     const {comments: {pagination}} = getState()
     if (pagination.getIn([page, 'loading']) || pagination.getIn([page, 'ids'])) return;
 
-    const limitPerPage = 5;
+    // const limitPerPage = 5;
     dispatch({
       type: LOAD_PAGE_COMMENTS + START,
-      payload: {page}
+      payload: {page, limitPerPage}
     });
 
     fetch(`/api/comment?limit=${limitPerPage}&offset=${(page - 1) * limitPerPage}`)
@@ -123,7 +123,7 @@ export function loadCommentsForPage(page) {
       .then(response => {
         dispatch({
           type: LOAD_PAGE_COMMENTS + SUCCESS,
-          payload: {page},
+          payload: {page, limitPerPage},
           response
         });
       })
