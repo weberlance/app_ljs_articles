@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Translate from '../Translate';
 
 function Loader(props){
   return (
-    <h1>Loading ...</h1>
+    <h1><Translate value="loading" /></h1>
   );
 }
 

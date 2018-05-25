@@ -1,4 +1,4 @@
-import { INCREMENT, DELETE_ARTICLE, FILTER_DATE_RANGE, FILTER_SELECTION, CREATE_COMMENT, GET_ALL_ARTICLES, LOAD_ARTICLE, LOAD_ARTICLE_COMMENTS, LOAD_PAGE_COMMENTS, START, SUCCESS, FAIL} from '../constants';
+import { INCREMENT, DELETE_ARTICLE, FILTER_DATE_RANGE, FILTER_SELECTION, CREATE_COMMENT, GET_ALL_ARTICLES, LOAD_ARTICLE, LOAD_ARTICLE_COMMENTS, LOAD_PAGE_COMMENTS, START, SUCCESS, FAIL, SWITCH_LANGUAGE} from '../constants';
 
 export function increment() {
   return ({
@@ -63,6 +63,7 @@ export function loadArticle(id) {
         });
       })
       .catch(error => {
+        console.log(error);
         dispatch({
           type: LOAD_ARTICLE + FAIL,
           payload: { id, error }
@@ -135,3 +136,10 @@ export function loadCommentsForPage(page, limitPerPage) {
       });
   };
 };
+
+export function langSwitch(language) {
+  return {
+    type: SWITCH_LANGUAGE,
+    language: language
+  }
+}

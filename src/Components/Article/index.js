@@ -20,7 +20,7 @@ class Article extends React.Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     isOpen: PropTypes.bool,
-    toggleOpen: PropTypes.func,
+    //toggleOpen: PropTypes.func,
     // from connect
     deleteArticle: PropTypes.func,
     createComment: PropTypes.func,
@@ -42,22 +42,25 @@ class Article extends React.Component {
   
 
   componentDidMount() {
-    const {isOpen, loadArticle, article} = this.props;
-    if(isOpen && !article.text && !article.loading) loadArticle(article.id);
+    const {id, isOpen, loadArticle, article} = this.props;
+    if( article && isOpen && !article.text && !article.loading) loadArticle(article.id);
   }
 
   render() {
-
-    const {article, isOpen, toggleOpen} = this.props;
-    if (!article) return null;
+    const {article, isOpen} = this.props;
+    if (!article) {
+      return null;
+    }
     return (
       <article>
         <div>
           <h1>{article.title}</h1>
           <button onClick = {this.handleDelete} className="article-btn article-btn_delete">Delete article</button>
+          {/*
           <button onClick = {toggleOpen} className="article-btn article-btn_open-close">
             {isOpen ? 'Close' : 'Open'}
           </button>
+          */}
         </div>
         
           <ReactCSSTransitionGroup
@@ -125,4 +128,4 @@ class Article extends React.Component {
 
 export default connect((state, ownProps) => ({
   article: state.articles.entities.get(ownProps.id)
-}), {deleteArticle, createComment, loadArticle} )(Article);
+}), {deleteArticle, createComment, loadArticle}, null, {pure: false} )(Article);
