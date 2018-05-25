@@ -43,7 +43,13 @@ class Article extends React.Component {
 
   componentDidMount() {
     const {id, isOpen, loadArticle, article} = this.props;
-    if( article && isOpen && !article.text && !article.loading) loadArticle(article.id);
+    console.log('article did mount');
+    if( !article || (!article.text && !article.loading)) {
+    
+    // if( article && isOpen && !article.text && !article.loading) {
+      console.log('start to load article');
+      loadArticle(id);
+    }
   }
 
   render() {

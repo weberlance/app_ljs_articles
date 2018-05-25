@@ -40,7 +40,7 @@ export function createComment(comment, articleId) {
 export function getAllArticles () {
   return ({
     type: GET_ALL_ARTICLES,
-    callAPI: 'api/article'
+    callAPI: '/api/article'
   });
 };
 

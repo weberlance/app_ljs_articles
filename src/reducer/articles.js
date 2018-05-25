@@ -37,7 +37,8 @@ export default (articleState = defaultState, action) => {
     case GET_ALL_ARTICLES + SUCCESS:
       const {response} = action; // response in action for example
       return articleState
-          .set('entities', arrToMap(response, ArticleRecord))
+          .update('entities', entities => arrToMap(response, ArticleRecord).merge(entities))
+          // .update('entities', entities => entities.merge(arrToMap(response, ArticleRecord)))
           .set('loading', false)
           .set('loaded', true);
 

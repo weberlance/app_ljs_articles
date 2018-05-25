@@ -9,13 +9,7 @@ class Articles extends React.Component {
 
   }
 
-  static contextTypes = {
-    langs: PropTypes.object
-  }
-
   render() {
-    console.log('langs: ');
-    console.log(this.context.langs);
     return (
       <div>
         <ArticleList/>

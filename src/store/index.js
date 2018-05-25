@@ -5,7 +5,7 @@ import idGen from '../middlewares/idGen';
 import api from '../middlewares/api';
 import thunk from 'redux-thunk';
 
-const enhancer = applyMiddleware(thunk, idGen, api/*, logger*/);
+const enhancer = applyMiddleware(thunk, idGen, api, logger);
 const store = createStore(reducer, {}, enhancer);
 
 // dev only
