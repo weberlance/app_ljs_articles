@@ -52,24 +52,22 @@ export function loadArticle(id) {
       payload: { id } 
     });
 
-    setTimeout(() => {
-      fetch(`/api/article/${id}`)
-      .then(res => res.json())
-      .then(response => {
-        dispatch({
-          type: LOAD_ARTICLE + SUCCESS,
-          payload: { id, response }
-          
-        });
-      })
-      .catch(error => {
-        console.log(error);
-        dispatch({
-          type: LOAD_ARTICLE + FAIL,
-          payload: { id, error }
-        });
-      })
-    }, 1000);
+    fetch(`/api/article/${id}`)
+    .then(res => res.json())
+    .then(response => {
+      dispatch({
+        type: LOAD_ARTICLE + SUCCESS,
+        payload: { id, response }
+        
+      });
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch({
+        type: LOAD_ARTICLE + FAIL,
+        payload: { id, error }
+      });
+    })
   };
 };
 

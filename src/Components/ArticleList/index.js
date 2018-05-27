@@ -20,8 +20,12 @@ class ArticleList extends React.Component {
   render() {
     const {articles, openedItemId, toggleOpenedItem, loading} = this.props;
     if(loading) return <Loader />;
+    //debugger;
     const articleElements = articles.map(article =>
-      <li key={article.id}>
+      {
+      // if (article.id === undefined) article.id = 'randomId';
+      // console.log('article.id: ', article.id)
+      return <li key={article.id}>
         {/*
         <Article
           article = {article}
@@ -32,6 +36,7 @@ class ArticleList extends React.Component {
       */}
         <NavLink to={`/articles/${article.id}`} activeStyle = {{color: '#f55'}}>{article.title}</NavLink>
       </li>
+      }
     );
     return (
       <ul>
