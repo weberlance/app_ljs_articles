@@ -35,16 +35,15 @@ export default (articleState = defaultState, action) => {
       return articleState.set('loading', true);
 
     case GET_ALL_ARTICLES + SUCCESS:
-      const {response} = action; // response in action for example
+      const {response} = action; // response in action is for example only
       return articleState
-          .update('entities', entities => arrToMap(response, ArticleRecord).merge(entities))
-          // .update('entities', entities => entities.merge(arrToMap(response, ArticleRecord)))
-          .set('loading', false)
-          .set('loaded', true);
+        .update('entities', entities => arrToMap(response, ArticleRecord).merge(entities))
+        .set('loading', false)
+        .set('loaded', true);
 
     case LOAD_ARTICLE + START:
       return articleState
-        .setIn(['entities', payload.id, 'loading'], true)
+        .setIn(['entities', payload.id], new ArticleRecord({loading: true, id: payload.id}));
 
     case LOAD_ARTICLE + SUCCESS: // response in payload
       return articleState
